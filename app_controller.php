@@ -37,6 +37,7 @@ class AppController extends Controller {
 		'Form',
 		'Session',
 		'Time',
+		'Text',
 		'Goodies.Gravatar',
 	);
 	

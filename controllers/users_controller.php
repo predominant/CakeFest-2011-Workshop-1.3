@@ -20,13 +20,36 @@ class UsersController extends AppController {
 		$this->User->recursive = 0;
 		$this->set('users', $this->paginate());
 	}
+	
+	public function males() {
+		// $users = $this->User->find('all', array(
+		// 	'conditions' => array(
+		// 		'sex' => 'M',
+		// 	)
+		// ));
+		// debug($users);
+		// die();
+		
+		// $this->paginate = array(
+		// 	'conditions' => array(
+		// 		'sex' => 'M',
+		// 	)
+		// );
+		// 
+		// $this->set('users', $this->paginate());
+
+		$users = $this->User->find('males');
+		$this->set('users', $users);
+	}
 
 	function view($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid user', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('user', $this->User->read(null, $id));
+		//$this->set('user', $this->User->read(null, $id));
+		
+		$this->set('user', $this->User->findBySlug($id));
 	}
 
 	function add() {

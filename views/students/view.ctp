@@ -21,7 +21,8 @@
 			<?php echo $this->Html->link(
 				//'View ' . $student['User']['name'] . '\'s Twitter account',
 				sprintf("View %s's Twitter account", $student['User']['name']),
-				'http://twitter.com/' . $student['Student']['twitter']
+				sprintf('http://twitter.com/%s', $student['Student']['twitter']),
+				array('target' => '_blank')
 			); ?>
 			&nbsp;
 		</dd>
@@ -36,6 +37,29 @@
 			&nbsp;
 		</dd>
 	</dl>
+	
+	<h2><?php echo $student['User']['name']; ?>'s Tweets</h2>
+	<?php if (!empty($student['Student']['tweets'])): ?>
+		<ul>
+			<?php foreach ($student['Student']['tweets'] as $tweet): ?>
+				<li><?php
+				echo $this->Html->image(
+					$tweet['profile_image_url'],
+					//array('url' => 'http://twitter.com/' . $tweet['from_user'])
+					array('url' => 'http://twitter.com/#!/' . $tweet['from_user'] . '/status/' . $tweet['id'])
+				);
+				echo $this->Text->autolink(
+					$tweet['text'],
+					array('target' => '_blank')
+				);
+				?></li>
+			<?php endforeach; ?>
+		</ul>
+	<?php else: ?>
+		<?php echo $student['User']['name']; ?> has no tweets!
+	<?php endif; ?>
+
+
 </div>
 <div class="actions">
 	<h3><?php __('Actions'); ?></h3>

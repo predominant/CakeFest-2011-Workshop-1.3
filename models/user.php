@@ -73,6 +73,28 @@ class User extends AppModel {
 		'M' => 'Male',
 		'F' => 'Female'
 	);
+
+	public $_findMethods = array(
+		'males' => true,
+	);
+	
+	public function _findMales($state, $query, &$results = null) {
+		if ($state === 'before') {
+			$query['conditions'] = array(
+				'sex' => 'M',
+			);
+			return $query;
+		}
+		
+		return $results;
+	}
+	
+	public function beforeSave($options = array()) {
+		$slug = strtolower(Inflector::slug($this->data['User']['name'], '-'));
+		$this->data['User']['slug'] = $slug;
+		
+		return parent::beforeSave($options);
+	}
 }
 
 
