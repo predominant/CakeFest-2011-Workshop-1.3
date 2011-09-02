@@ -30,14 +30,24 @@ class UsersController extends AppController {
 	}
 
 	function add() {
+		if ($this->Auth->user()) {
+			$this->Session->setFlash('You already have a user');
+			$this->redirect('/');
+		}
+		
 		if (!empty($this->data)) {
 			$this->User->create();
 			if ($this->User->save($this->data)) {
 				$this->Session->setFlash(__('The user has been saved', true));
-				//$this->redirect(array('action' => 'index'));
-				
-				// debug($this->data);
-				// die();
+
+				// $userData = array(
+				// 	'User' => array(
+				// 		'email' => $this->data['User']['email'],
+				// 		'password' => Security::hash('Some Password')
+				// 	)
+				// )
+
+				$this->Auth->login($this->data);
 				
 				$this->redirect(array(
 					'controller' => Inflector::pluralize($this->data['User']['type']),

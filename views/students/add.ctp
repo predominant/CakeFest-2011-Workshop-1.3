@@ -1,9 +1,12 @@
 <div class="students form">
-<?php echo $this->Form->create('Student');?>
+<?php echo $this->Form->create('Student', array('url' => array($user_id)));?>
 	<fieldset>
 		<legend><?php __('Add Student'); ?></legend>
 	<?php
-		echo $this->Form->input('user_id');
+		// echo $this->Form->input('user_id', array(
+		// 	'type' => 'hidden',
+		// 	'value' => $user_id
+		// ));
 		echo $this->Form->input('number');
 		echo $this->Form->input('twitter');
 		echo $this->Form->input('Course');

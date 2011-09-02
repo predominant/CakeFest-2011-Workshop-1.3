@@ -11,5 +11,11 @@ if ($authUser) {
 		array('controller' => 'users', 'action' => 'login'),
 		array('style' => 'color: #fff;')
 	);
+	?> | <?php
+	echo $this->Html->link(
+		'Register',
+		array('controller' => 'users', 'action' => 'add'),
+		array('style' => 'color: #fff;')
+	);
 }
 ?>

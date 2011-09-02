@@ -16,9 +16,15 @@ class StudentsController extends AppController {
 		$this->set('student', $this->Student->read(null, $id));
 	}
 
-	function add() {
+	function add($id = null) {
+		if (!$id) {
+			$this->Session->setFlash(__('Invalid Request', true));
+			$this->redirect(array('controller' => 'users', 'action' => 'add'));
+		}
+		
 		if (!empty($this->data)) {
 			$this->Student->create();
+			$this->data['Student']['user_id'] = $id;
 			if ($this->Student->save($this->data)) {
 				$this->Session->setFlash(__('The student has been saved', true));
 				$this->redirect(array('action' => 'index'));
@@ -29,6 +35,7 @@ class StudentsController extends AppController {
 		$users = $this->Student->User->find('list');
 		$courses = $this->Student->Course->find('list');
 		$this->set(compact('users', 'courses'));
+		$this->set('user_id', $id);
 	}
 
 	function edit($id = null) {

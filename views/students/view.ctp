@@ -18,7 +18,11 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Twitter'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $student['Student']['twitter']; ?>
+			<?php echo $this->Html->link(
+				//'View ' . $student['User']['name'] . '\'s Twitter account',
+				sprintf("View %s's Twitter account", $student['User']['name']),
+				'http://twitter.com/' . $student['Student']['twitter']
+			); ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Created'); ?></dt>
